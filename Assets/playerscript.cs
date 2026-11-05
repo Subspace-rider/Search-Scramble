@@ -4,17 +4,14 @@ using Unity.VisualScripting;
 using System;
 public class playerscript : MonoBehaviour
 {
-    public enum PlayerState
-    {
-        NULL,
-        HUNTER,
-        HIDER
-    }
-    public PlayerState mystate;
     private Rigidbody2D playerRB;
     private SpriteRenderer playerSprite;
     [SerializeField]public float moveSpeed = 5f;
     private Vector2 moveInput;
+    public bool pickedHider;
+    public bool pickedHunter;
+    //public int hiderCount = 0;
+    //public int hunterCount = 0;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -26,12 +23,8 @@ public class playerscript : MonoBehaviour
     {
         moveInput = value.Get<Vector2>();
     }
-    public void SwitchState()
-    {
-        
-    }
 
-     private void FixedUpdate()
+    private void FixedUpdate()
     {
         playerRB.linearVelocity = moveInput * moveSpeed;
     }
@@ -46,5 +39,26 @@ public class playerscript : MonoBehaviour
         if(Keyboard.current == null) return;
 
         if(Gamepad.current == null) return;
+
+        if(Keyboard.current.rKey.wasPressedThisFrame || Gamepad.current.buttonWest.wasPressedThisFrame)
+        {
+            pickedHider = true;
+            pickedHunter = false;
+        }
+        if(Keyboard.current.hKey.wasPressedThisFrame || Gamepad.current.buttonNorth.wasPressedThisFrame)
+        {
+            pickedHunter = true;
+            pickedHider = false;
+        }
+
+        if(pickedHider == true && pickedHunter == false)
+        {
+            playerSprite.color = Color.dimGray;
+        }
+        
+        if(pickedHunter == true && pickedHider == false)
+        {
+            playerSprite.color = Color.darkRed;
+        }
     }
 }

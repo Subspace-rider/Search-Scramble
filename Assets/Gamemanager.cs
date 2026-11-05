@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 //using System;
 using TMPro;
 
@@ -14,6 +15,9 @@ public class Gamemanager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(Keyboard.current == null) return;
+
+        if(Gamepad.current == null) return;
+
     }
 }
