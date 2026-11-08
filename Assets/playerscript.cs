@@ -51,12 +51,12 @@ public class playerscript : MonoBehaviour
             pickedHider = false;
         }
 
-        if(pickedHider == true && pickedHunter == false)
+        if(pickedHider == true)
         {
             playerSprite.color = Color.dimGray;
         }
         
-        if(pickedHunter == true && pickedHider == false)
+        if(pickedHunter == true)
         {
             playerSprite.color = Color.darkRed;
         }
