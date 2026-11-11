@@ -23,7 +23,17 @@ public class playerscript : MonoBehaviour
     {
         moveInput = value.Get<Vector2>();
     }
-
+    
+    public void OnChooseRoleHunter(InputValue value)
+    {
+        pickedHunter = value.isPressed;
+        pickedHider = !value.isPressed;
+    }
+    public void OnChooseRoleHider(InputValue value)
+    {
+        pickedHider = value.isPressed;
+        pickedHunter = !value.isPressed;
+    }
     private void FixedUpdate()
     {
         playerRB.linearVelocity = moveInput * moveSpeed;
@@ -40,16 +50,6 @@ public class playerscript : MonoBehaviour
 
         if(Gamepad.current == null) return;
 
-        if(Keyboard.current.rKey.wasPressedThisFrame || Gamepad.current.buttonWest.wasPressedThisFrame)
-        {
-            pickedHider = true;
-            pickedHunter = false;
-        }
-        if(Keyboard.current.hKey.wasPressedThisFrame || Gamepad.current.buttonNorth.wasPressedThisFrame)
-        {
-            pickedHunter = true;
-            pickedHider = false;
-        }
 
         if(pickedHider == true)
         {

@@ -3,9 +3,11 @@ using UnityEngine.InputSystem;
 //using System;
 using TMPro;
 using Unity.VisualScripting;
+using System.Collections.Generic;
 
 public class Gamemanager : MonoBehaviour
 {
+    public List<GameObject> Players;
     [SerializeField] public GameObject playerPrefab;
     [SerializeField] private Transform[] spawnPoints;
     
@@ -27,6 +29,8 @@ public class Gamemanager : MonoBehaviour
                 player.transform.position = spawnPoints[0].position;
             }
             keyboardJoined = true;
+            Players.Add(player.gameObject);
+            player.gameObject.layer = LayerMask.NameToLayer("Player "+ Players.Count);
         }
 
         if(Gamepad.current == null) return;
@@ -35,11 +39,13 @@ public class Gamemanager : MonoBehaviour
         {
             if(gamePad.rightStickButton.wasPressedThisFrame && !controllerJoined)
             {
-                PlayerInput.Instantiate(playerPrefab,
+                var player = PlayerInput.Instantiate(playerPrefab,
                     controlScheme:"Gamepad",
                     pairWithDevice: gamePad);
                 
                 controllerJoined = true;
+                Players.Add(player.gameObject);
+                player.gameObject.layer = LayerMask.NameToLayer("Player "+ Players.Count);
             }
         }
     }
