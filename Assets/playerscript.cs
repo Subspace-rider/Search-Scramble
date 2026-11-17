@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Unity.VisualScripting;
 using System;
+using UnityEngine.SceneManagement;
 public class playerscript : MonoBehaviour
 {
     private Rigidbody2D playerRB;
@@ -39,9 +40,15 @@ public class playerscript : MonoBehaviour
         playerRB.linearVelocity = moveInput * moveSpeed;
     }
 
-    public void OnTriggerStay2D(Collider2D collision)
+    public void playerscriptOnCollisionEnter2D(Collider2D collision)
     {
-        
+        if(pickedHunter == true)
+        {
+            if(collision.gameObject.CompareTag("Player"))
+            {
+                //SceneManager.LoadScene("")
+            }
+        }
     }
     // Update is called once per frame
     void Update()
